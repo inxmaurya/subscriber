@@ -6,6 +6,7 @@ interface Message {
   action: string;
 }
 
+console.log(`WebSocketURL: ${process.env.REACT_APP_WEB_SOCKET_URL}`);
 let socket: WebSocket | null = null; // Singleton WebSocket connection
 const WebSocketChannelSubscriber: React.FC = () => {
   const [channel, setChannel] = useState<string>("test-channel"); // Default channel
@@ -14,7 +15,7 @@ const WebSocketChannelSubscriber: React.FC = () => {
   useEffect(() => {
     if (!socket) {
       // Create WebSocket connection only if it doesn't already exist
-      socket = new WebSocket("ws://localhost:8080"); // Replace with your WebSocket server URL
+      socket = new WebSocket(`${process.env.REACT_APP_WEB_SOCKET_URL!}`); // Replace with your WebSocket server URL
 
       socket.onopen = () => {
         console.log("WebSocket connection established");
